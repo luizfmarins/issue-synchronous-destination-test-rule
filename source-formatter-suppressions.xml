@@ -1,0 +1,19 @@
+<?xml version="1.0"?>
+
+<suppressions>
+	<checkstyle>
+		<suppress checks="Chaining" files=".*"/>
+		<suppress checks="MissingEmptyLine" files=".*"/>
+		<suppress checks="StringBundlerNaming" files=".*"/>
+		<suppress checks="Subname" files=".*"/>
+	</checkstyle>
+	<source-check>
+		<suppress checks="BNDBundleInformationCheck" files=".*"/>
+		<suppress checks="CopyrightCheck" files=".*"/>
+		<suppress checks="GradleDependenciesCheck" files=".*"/>
+		<suppress checks="GradleVersionCheck" files=".*"/>
+		<suppress checks="JavaReturnStatementCheck" files=".*"/>
+		<suppress checks="JavaStaticImportsCheck" files=".*"/>
+		<suppress checks="PrimitiveWrapperInstantiationCheck" files=".*"/>
+	</source-check>
+</suppressions>

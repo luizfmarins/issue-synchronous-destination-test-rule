@@ -1,0 +1,45 @@
+allprojects {
+    apply plugin: "eclipse"
+    apply plugin: "idea"
+}
+
+distBundle {
+    exclude "**/source.formatter*.jar"
+}
+
+def sdlcPropsFile = new File(System.getProperty('user.home') + "/.liferay/sdlc.properties");
+def sdlcProps = new Properties()
+
+if (sdlcPropsFile.exists()) {
+    sdlcProps.load(new FileInputStream(sdlcPropsFile));
+}
+
+def sdlcUsername = sdlcProps.get('username') ?: sdlcProps.get('nexusUsername');
+def sdlcPassword = sdlcProps.get('password') ?: sdlcProps.get('nexusPassword');
+
+ext {
+    nexusUsername = System.getenv("NEXUS_USER") ?: sdlcUsername;
+    nexusPassword = System.getenv("NEXUS_PASSWORD") ?: sdlcPassword;
+    sonarUsername = System.getenv("SONAR_USER") ?: sdlcUsername;
+    sonarPassword = System.getenv("SONAR_PASSWORD") ?: sdlcPassword;
+}
+
+downloadBundle {
+    username nexusUsername
+    password nexusPassword
+    onlyIf {
+        String url = downloadBundle.src.toString()
+        File cachedFile = new File(downloadBundle.dest, url.substring(url.lastIndexOf("/") + 1))
+        if (cachedFile.exists()) {
+            return false
+        }
+
+        return true
+    }
+}
+
+task deployTestableModules {
+    dependsOn {
+        getTasksByName('deploy', true)
+    }
+}

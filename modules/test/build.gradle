@@ -1,0 +1,25 @@
+plugins {
+	id "de.undercouch.download" version "3.1.2"
+}
+
+apply plugin: 'java'
+apply plugin: 'maven'
+apply plugin: 'maven-publish'
+apply plugin: 'eclipse'
+
+sourceCompatibility = "1.8"
+targetCompatibility = "1.8"
+
+configure(subprojects.findAll { !it.subprojects }) {
+	beforeEvaluate { subproject ->
+		deploy {
+			enabled = false
+		}
+	}
+
+	afterEvaluate { subproject ->
+		deploy {
+			exclude "**/*source.formatter*.jar"
+		}
+	}
+}

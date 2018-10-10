@@ -1,0 +1,3 @@
+Bundle-Name: my-integration-test
+Bundle-SymbolicName: com.liferay.integration.test
+Bundle-Version: 1.0.0
